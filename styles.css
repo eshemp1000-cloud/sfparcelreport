@@ -1,105 +1,258 @@
-/* --- Terminal header positioning override --- */
+/* sfparcelreport, landing page, single pass stabilization
+   Goals:
+   - Dark background, green type, calm, credible terminal inspired
+   - Brand + top tagline clearly at top, no sticky, no overlap
+   - Minimal, low risk, no layout tricks
+*/
 
-/* Move brand + tagline to the very top visually */
-.header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  padding: 14px 0 18px;
-  background:
-    linear-gradient(180deg, rgba(6,8,11,0.92), rgba(6,8,11,0.88));
-  border-bottom: 1px solid var(--border);
-  margin-bottom: 22px;
+/* -------- Design tokens -------- */
+:root{
+  --bg: #070b08;
+  --panel: #0b120e;
+  --panel2: #09110c;
+
+  --text: #b8f7c6;        /* primary green */
+  --text2: #8fe9a6;       /* secondary green */
+  --muted: #6fd58c;       /* muted green */
+  --soft: rgba(184,247,198,0.10);
+
+  --border: rgba(184,247,198,0.14);
+  --border2: rgba(184,247,198,0.22);
+
+  --link: #aef6c0;
+  --linkHover: #d0ffe0;
+
+  --shadow: 0 12px 30px rgba(0,0,0,0.55);
+
+  --radius: 14px;
+  --maxw: 980px;
 }
 
-/* Give it a terminal-style separation */
-.header::after {
-  content: "";
-  display: block;
-  margin-top: 12px;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    rgba(135,255,180,0.6),
-    rgba(135,255,180,0.05)
-  );
-}
+/* -------- Base -------- */
+*{ box-sizing: border-box; }
 
-/* Slightly emphasize the tagline */
-.tagline {
-  font-size: 13px;
-  color: var(--muted);
-  opacity: 0.95;
-}
-/* --- Fix sticky header overlap / spacing --- */
-.header{
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  padding: 14px 16px 18px;
-  margin-left: -16px;
-  margin-right: -16px;
-}
-
-.wrap{
-  padding-top: 10px;
-}
-/* ---- Stabilization patch: readability + no sticky + tagline at top ---- */
-
-/* Calm, credible defaults */
-html, body {
+html, body{
   margin: 0;
   padding: 0;
+  background: var(--bg);
+  color: var(--text);
 }
 
-body {
+body{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+               "Liberation Mono", "Courier New", monospace;
   line-height: 1.55;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  background: #0b0f0c;
-  color: #e7e7e7;
+  text-rendering: geometricPrecision;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Constrain content width without changing HTML structure */
-main, .container, .wrap, .content {
-  max-width: 920px;
+/* Keep anchors from landing under any accidental sticky behavior */
+html{ scroll-padding-top: 24px; }
+
+/* -------- Layout container -------- */
+.wrap{
+  max-width: var(--maxw);
   margin: 0 auto;
-  padding: 40px 18px;
+  padding: 40px 18px 56px;
 }
 
-/* Ensure headings are readable */
-h1, h2, h3 {
-  color: #f2f2f2;
-  margin-top: 0;
-}
-
-/* Links remain legible */
-a {
-  color: #b7f7d8;
-}
-
-/* Kill sticky/fixed header behavior defensively */
-header, .header, .site-header, .topbar, .navbar {
+/* -------- Header (top brand + tagline) -------- */
+.header{
+  /* Hard disable any previous sticky behavior */
   position: static !important;
   top: auto !important;
   z-index: auto !important;
-}
 
-/* Put the tagline at the top, directly under the first H1 */
-h1:first-of-type::after {
-  content: "Built for San Francisco, designed for day to day due diligence.";
   display: block;
+  padding: 18px 18px 16px;
+  margin: 0 0 18px;
+
+  background: linear-gradient(180deg, rgba(11,18,14,0.92), rgba(7,11,8,0.82));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.brand{
+  font-size: 18px;
+  letter-spacing: 0.2px;
+  font-weight: 650;
+  color: var(--text);
+}
+
+.tagline{
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--text2);
+  opacity: 0.95;
+}
+
+/* subtle divider line, not loud */
+.header::after{
+  content: "";
+  display: block;
+  margin-top: 14px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(184,247,198,0.45),
+    rgba(184,247,198,0.08)
+  );
+}
+
+/* -------- Cards / sections -------- */
+.card{
+  background: linear-gradient(180deg, rgba(11,18,14,0.84), rgba(9,17,12,0.72));
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 20px;
+  margin: 0 0 18px;
+  box-shadow: var(--shadow);
+}
+
+/* Keep typography calm and readable */
+h1, h2, h3{
+  margin: 0 0 12px;
+  color: var(--text);
+  line-height: 1.18;
+}
+
+h1{ font-size: 26px; }
+h2{ font-size: 18px; }
+h3{ font-size: 16px; }
+
+p{ margin: 0 0 12px; }
+.lead{
+  color: var(--text2);
+  font-size: 14px;
+}
+
+.mini{
+  color: var(--muted);
+  font-size: 12.5px;
+}
+
+/* Lists */
+ul, ol{
+  margin: 10px 0 0 18px;
+  padding: 0;
+}
+li{
+  margin: 6px 0;
+  color: var(--text2);
+}
+
+/* -------- CTA row -------- */
+.ctaRow{
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 14px;
+}
+
+.btn{
+  display: inline-block;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--border2);
+  background: rgba(184,247,198,0.06);
+  color: var(--linkHover);
+  text-decoration: none;
+  font-weight: 650;
+}
+
+.btn:hover{
+  background: rgba(184,247,198,0.10);
+  border-color: rgba(184,247,198,0.30);
+}
+
+.link{
+  color: var(--link);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(174,246,192,0.25);
+  padding-bottom: 2px;
+}
+
+.link:hover{
+  color: var(--linkHover);
+  border-bottom-color: rgba(208,255,224,0.45);
+}
+
+/* global link safety */
+a{ color: var(--link); }
+a:hover{ color: var(--linkHover); }
+
+/* -------- Grid -------- */
+.grid{
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+@media (min-width: 860px){
+  .grid{
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* -------- Code block -------- */
+.codeBlock{
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(0,0,0,0.25);
+}
+
+.codeTitle{
+  font-size: 12px;
+  color: var(--muted);
+  margin: 0 0 8px;
+}
+
+pre{
+  margin: 0 0 12px;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid rgba(184,247,198,0.12);
+  background: rgba(0,0,0,0.35);
+  overflow: auto;
+}
+
+code{
+  font-family: inherit;
+  color: var(--linkHover);
+}
+
+.mono{
+  font-family: inherit;
+  color: var(--linkHover);
+  background: rgba(184,247,198,0.06);
+  border: 1px solid rgba(184,247,198,0.10);
+  padding: 1px 6px;
+  border-radius: 8px;
+}
+
+/* -------- Footer -------- */
+.footer{
   margin-top: 10px;
-  font-size: 1.02rem;
-  opacity: 0.85;
+  padding: 18px 18px 10px;
+  color: var(--muted);
+  border-top: 1px solid rgba(184,247,198,0.14);
 }
 
-/* Optional: hide duplicated footer brand + tagline if they are the final two nodes */
-body > :last-child,
-body > :nth-last-child(2) {
-  display: none;
+/* De-emphasize the footer brand line so it does not compete with the header */
+.footer > div:first-child{
+  color: rgba(184,247,198,0.55);
+  font-size: 12.5px;
+  margin-bottom: 6px;
 }
 
-/* Keep content from hiding under the header when using #anchors */
-html{
-  scroll-padding-top: 120px;
+/* -------- Defensive overrides (prevents regression from old CSS fragments) -------- */
+/* If any old rules reintroduce sticky, this wins */
+header, .header{
+  position: static !important;
 }

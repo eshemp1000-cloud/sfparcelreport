@@ -31,3 +31,21 @@
   color: var(--muted);
   opacity: 0.95;
 }
+/* --- Fix sticky header overlap / spacing --- */
+.header{
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 14px 16px 18px;
+  margin-left: -16px;
+  margin-right: -16px;
+}
+
+.wrap{
+  padding-top: 10px;
+}
+
+/* Keep content from hiding under the header when using #anchors */
+html{
+  scroll-padding-top: 120px;
+}

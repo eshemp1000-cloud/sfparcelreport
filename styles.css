@@ -1,231 +1,33 @@
-:root{
-  --bg:#06080b;
-  --panel:#0b0f14;
-  --panel2:#070a0e;
-  --text:#d7fbe3;
-  --muted:#8fd6a8;
-  --dim:#5aa07a;
-  --border:rgba(135, 255, 180, 0.18);
-  --border2:rgba(135, 255, 180, 0.10);
-  --shadow:rgba(0,0,0,0.45);
-  --glow:rgba(135, 255, 180, 0.20);
-  --btnBg:transparent;
-  --btnText:var(--text);
-  --btnBorder:rgba(135, 255, 180, 0.35);
-}
+/* --- Terminal header positioning override --- */
 
-*{ box-sizing:border-box; }
-
-html, body{ height:100%; }
-
-body{
-  margin:0;
-  background: radial-gradient(1200px 800px at 20% 10%, rgba(135,255,180,0.08), transparent 60%),
-              radial-gradient(900px 650px at 90% 20%, rgba(135,255,180,0.05), transparent 55%),
-              radial-gradient(1200px 900px at 50% 90%, rgba(135,255,180,0.04), transparent 60%),
-              var(--bg);
-  color:var(--text);
-  line-height:1.55;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-  letter-spacing:0.1px;
-}
-
-.wrap{
-  max-width: 980px;
-  margin: 0 auto;
-  padding: 26px 16px 56px;
-}
-
-.header{
-  display:flex;
-  flex-direction:column;
-  gap:10px;
-  margin-bottom:16px;
-}
-
-.brand{
-  display:inline-flex;
-  align-items:center;
-  gap:10px;
-  font-weight:800;
-  font-size:16px;
-  letter-spacing:0.8px;
-  text-transform:lowercase;
-}
-
-.brand::before{
-  content:"●";
-  color: var(--text);
-  text-shadow: 0 0 14px var(--glow);
-}
-
-.tagline{
-  color:var(--muted);
-  font-size:13px;
-  opacity:0.92;
-}
-
-.card{
+/* Move brand + tagline to the very top visually */
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  padding: 14px 0 18px;
   background:
-    linear-gradient(180deg, rgba(135,255,180,0.03), transparent 18%),
-    linear-gradient(0deg, rgba(0,0,0,0.20), rgba(0,0,0,0.20)),
-    var(--panel);
-  border:1px solid var(--border);
-  border-radius:14px;
-  padding:18px 18px;
-  margin:14px 0;
-  box-shadow: 0 10px 28px var(--shadow);
-  position:relative;
-  overflow:hidden;
+    linear-gradient(180deg, rgba(6,8,11,0.92), rgba(6,8,11,0.88));
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 22px;
 }
 
-.card::after{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:
-    linear-gradient(90deg, rgba(135,255,180,0.06) 1px, transparent 1px),
-    linear-gradient(0deg, rgba(135,255,180,0.04) 1px, transparent 1px);
-  background-size: 48px 48px;
-  opacity:0.12;
-  pointer-events:none;
+/* Give it a terminal-style separation */
+.header::after {
+  content: "";
+  display: block;
+  margin-top: 12px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(135,255,180,0.6),
+    rgba(135,255,180,0.05)
+  );
 }
 
-h1{
-  margin:0 0 10px;
-  font-size:24px;
-  letter-spacing:0.2px;
-  text-shadow: 0 0 16px rgba(135,255,180,0.10);
-}
-
-h2{
-  margin:0 0 10px;
-  font-size:16px;
-  letter-spacing:0.2px;
-  color: var(--text);
-}
-
-.lead{
-  margin:0 0 12px;
-  color:var(--text);
-  font-size:14px;
-}
-
-.mini{
-  color:var(--dim);
-  font-size:12px;
-  margin-top:10px;
-}
-
-.grid{
-  display:grid;
-  grid-template-columns:1fr;
-  gap:14px;
-}
-
-@media (min-width: 760px){
-  .grid{ grid-template-columns: 1fr 1fr; }
-}
-
-ul, ol{
-  margin:10px 0 0;
-  padding-left:18px;
-  color:var(--text);
-}
-
-li{ margin: 7px 0; }
-
-.ctaRow{
-  display:flex;
-  flex-wrap:wrap;
-  gap:12px;
-  align-items:center;
-  margin:12px 0 0;
-}
-
-.btn{
-  display:inline-block;
-  padding:10px 14px;
-  border-radius:12px;
-  background: var(--btnBg);
-  color: var(--btnText);
-  text-decoration:none;
-  font-weight:800;
-  border:1px solid var(--btnBorder);
-  box-shadow: 0 0 0 3px rgba(135,255,180,0.06);
-  position:relative;
-}
-
-.btn::before{
-  content:"";
-  position:absolute;
-  inset:-1px;
-  border-radius:12px;
-  background: linear-gradient(90deg, rgba(135,255,180,0.25), rgba(135,255,180,0.02));
-  opacity:0.15;
-  pointer-events:none;
-}
-
-.btn:hover{
-  box-shadow: 0 0 0 3px rgba(135,255,180,0.10), 0 0 22px rgba(135,255,180,0.10);
-}
-
-.link{
+/* Slightly emphasize the tagline */
+.tagline {
+  font-size: 13px;
   color: var(--muted);
-  text-decoration:none;
-  border-bottom:1px solid rgba(135,255,180,0.35);
-}
-
-.link:hover{
-  color: var(--text);
-  border-bottom-color: rgba(135,255,180,0.65);
-}
-
-.codeBlock{
-  margin-top:12px;
-  border:1px solid var(--border2);
-  border-radius:12px;
-  overflow:hidden;
-  background: linear-gradient(180deg, rgba(0,0,0,0.25), rgba(0,0,0,0.40)), var(--panel2);
-}
-
-.codeTitle{
-  padding:10px 12px;
-  color: var(--dim);
-  font-size:12px;
-  border-bottom:1px solid var(--border2);
-  background: rgba(0,0,0,0.25);
-}
-
-pre{
-  margin:0;
-  padding:12px;
-  overflow:auto;
-  background: transparent;
-}
-
-code{
-  font-family: inherit;
-  font-size: 13px;
-  color: var(--text);
-}
-
-.mono{
-  font-family: inherit;
-  font-size: 13px;
-  color: var(--text);
-}
-
-.footer{
-  margin-top:18px;
-  padding-top:10px;
-  color:var(--dim);
-  display:flex;
-  justify-content:space-between;
-  gap:12px;
-  flex-wrap:wrap;
-}
-
-.footer .mini{
-  margin-top:0;
+  opacity: 0.95;
 }

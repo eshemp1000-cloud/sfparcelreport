@@ -44,6 +44,60 @@
 .wrap{
   padding-top: 10px;
 }
+/* ---- Stabilization patch: readability + no sticky + tagline at top ---- */
+
+/* Calm, credible defaults */
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  line-height: 1.55;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  background: #0b0f0c;
+  color: #e7e7e7;
+}
+
+/* Constrain content width without changing HTML structure */
+main, .container, .wrap, .content {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 40px 18px;
+}
+
+/* Ensure headings are readable */
+h1, h2, h3 {
+  color: #f2f2f2;
+  margin-top: 0;
+}
+
+/* Links remain legible */
+a {
+  color: #b7f7d8;
+}
+
+/* Kill sticky/fixed header behavior defensively */
+header, .header, .site-header, .topbar, .navbar {
+  position: static !important;
+  top: auto !important;
+  z-index: auto !important;
+}
+
+/* Put the tagline at the top, directly under the first H1 */
+h1:first-of-type::after {
+  content: "Built for San Francisco, designed for day to day due diligence.";
+  display: block;
+  margin-top: 10px;
+  font-size: 1.02rem;
+  opacity: 0.85;
+}
+
+/* Optional: hide duplicated footer brand + tagline if they are the final two nodes */
+body > :last-child,
+body > :nth-last-child(2) {
+  display: none;
+}
 
 /* Keep content from hiding under the header when using #anchors */
 html{

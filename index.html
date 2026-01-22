@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>sfparcelreport, San Francisco address to parcel report</title>
+    <meta
+      name="description"
+      content="Generate a consolidated San Francisco planning and permit report from a street address. Runs locally. Deterministic, ambiguity-safe parcel selection."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <main class="wrap">
+      <header class="header">
+        <div class="brand">sfparcelreport</div>
+        <div class="tagline">San Francisco address to parcel report, in seconds.</div>
+      </header>
+
+      <section class="card">
+        <h1>Stop burning 30 to 45 minutes per address.</h1>
+        <p class="lead">
+          sfparcelreport turns a San Francisco street address into a consolidated planning and permit report.
+          It runs locally on your machine and pulls from public SF datasets at runtime.
+        </p>
+
+        <div class="ctaRow">
+          <a class="btn" href="#download">Download for Windows</a>
+          <a class="link" href="#how">How it works</a>
+        </div>
+
+        <div class="mini">
+          No login, no accounts, no data storage, no guessing. If an address maps to multiple parcels, you choose the parcel.
+        </div>
+      </section>
+
+      <section class="grid">
+        <section class="card">
+          <h2>Who it is for</h2>
+          <ul>
+            <li>Real estate agents working in San Francisco</li>
+            <li>Planners, designers, architects</li>
+            <li>Contractors, builders, and trades</li>
+          </ul>
+        </section>
+
+        <section class="card">
+          <h2>What you get</h2>
+          <ul>
+            <li>Address to parcel resolution</li>
+            <li>Planning context, district, neighborhood, and related metadata</li>
+            <li>DBI permit activity summary, when matchable</li>
+            <li>Deterministic output, ambiguity-safe selection</li>
+          </ul>
+        </section>
+      </section>
+
+      <section id="how" class="card">
+        <h2>How it works</h2>
+        <ol>
+          <li>You enter a San Francisco street address.</li>
+          <li>The tool resolves the address to a parcel identifier using SF address indexing data.</li>
+          <li>If multiple parcels match, it presents candidates and you select the correct parcel.</li>
+          <li>The report is generated locally and printed immediately.</li>
+        </ol>
+
+        <div class="codeBlock">
+          <div class="codeTitle">Example</div>
+          <pre><code>python sf_parcel_report.py "1193 MARKET ST"</code></pre>
+          <div class="codeTitle">If ambiguous</div>
+          <pre><code>python sf_parcel_report.py --pick 1 "1193 MARKET ST"</code></pre>
+        </div>
+      </section>
+
+      <section id="download" class="card">
+        <h2>Download</h2>
+        <p class="lead">
+          Download the Windows package, unzip, then run the included command or shortcut.
+        </p>
+
+        <div class="ctaRow">
+          <!-- Replace this href with your actual download file URL once you have it -->
+          <a class="btn" href="downloads/sfparcelreport_windows.zip">Download for Windows</a>
+          <a class="link" href="#install">Install steps</a>
+        </div>
+
+        <p class="mini">
+          Note: This download link is a placeholder until you upload your first ZIP.
+        </p>
+      </section>
+
+      <section id="install" class="card">
+        <h2>Install steps</h2>
+        <ol>
+          <li>Download the ZIP.</li>
+          <li>Unzip to a folder, for example <span class="mono">Documents\sfparcelreport</span>.</li>
+          <li>Open PowerShell in that folder.</li>
+          <li>Run: <span class="mono">python sf_parcel_report.py "YOUR ADDRESS"</span></li>
+        </ol>
+
+        <p class="mini">
+          Packaging will improve the first-run experience, but the tool is designed to run locally and remain domain independent.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>What it does not do</h2>
+        <ul>
+          <li>No predictions, no opinions, no legal advice</li>
+          <li>No user accounts, no saved address history</li>
+          <li>No changes to city records</li>
+        </ul>
+      </section>
+
+      <section class="card">
+        <h2>Contact</h2>
+        <p class="lead">
+          Questions, feedback, office trials:
+          <span class="mono">youremail@domain.com</span>
+        </p>
+        <p class="mini">
+          Data sources are public San Francisco datasets. Availability and fields may change over time.
+        </p>
+      </section>
+
+      <footer class="footer">
+        <div>sfparcelreport</div>
+        <div class="mini">Built for San Francisco, designed for day to day due diligence.</div>
+      </footer>
+    </main>
+  </body>
+</html>

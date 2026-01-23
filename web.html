@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SF Parcel Report</title>
+  <style>
+    :root{
+      --bg:#070A0C;
+      --card:#0E1418;
+      --text:#E9F2F1;
+      --muted:#A9B9B6;
+      --accent:#40F2C7;
+      --accent2:#2CC0A2;
+      --border:rgba(64,242,199,.18);
+      --shadow: 0 18px 60px rgba(0,0,0,.55);
+      --radius:18px;
+      --max: 980px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background:
+        radial-gradient(900px 500px at 20% 10%, rgba(64,242,199,.10), transparent 60%),
+        radial-gradient(700px 420px at 85% 35%, rgba(44,192,162,.10), transparent 55%),
+        radial-gradient(800px 520px at 50% 95%, rgba(64,242,199,.07), transparent 60%),
+        var(--bg);
+      color:var(--text);
+    }
+    a{color:inherit}
+    .wrap{max-width:var(--max); margin:0 auto; padding:24px 16px 70px}
+    header{
+      display:flex; gap:14px; align-items:center; justify-content:space-between;
+      padding:18px 0 10px;
+    }
+    .brand{
+      display:flex; gap:12px; align-items:center;
+    }
+    .dot{
+      width:14px; height:14px; border-radius:50%;
+      background: var(--accent);
+      box-shadow: 0 0 22px rgba(64,242,199,.55);
+    }
+    h1{
+      font-size: clamp(26px, 3.3vw, 44px);
+      margin: 18px 0 10px;
+      letter-spacing:-.02em;
+      line-height:1.05;
+    }
+    .sub{
+      color:var(--muted);
+      font-size: 16px;
+      line-height:1.5;
+      max-width: 70ch;
+      margin: 0 0 18px;
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 14px;
+    }
+    @media(min-width: 860px){
+      .grid{grid-template-columns: 1.1fr .9fr}
+    }
+    label{
+      display:block;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    input{
+      width:100%;
+      padding: 14px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(233,242,241,.12);
+      background: rgba(0,0,0,.25);
+      color: var(--text);
+      outline: none;
+      font-size: 16px;
+    }
+    input:focus{
+      border-color: rgba(64,242,199,.55);
+      box-shadow: 0 0 0 4px rgba(64,242,199,.12);
+    }
+    .row{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top: 12px;
+      align-items:center;
+    }
+    button{
+      border:0;
+      cursor:pointer;
+      padding: 12px 14px;
+      border-radius: 14px;
+      font-weight: 700;
+      letter-spacing:.01em;
+      color: #04110E;
+      background: linear-gradient(180deg, var(--accent), var(--accent2));
+      box-shadow: 0 14px 26px rgba(64,242,199,.18);
+    }
+    button.secondary{
+      background: transparent;
+      color: var(--text);
+      border: 1px solid rgba(233,242,241,.14);
+      box-shadow: none;
+      font-weight: 600;
+    }
+    .hint{
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 10px;
+      line-height:1.5;
+    }
+    .status{
+      margin-top: 12px;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(233,242,241,.10);
+      background: rgba(0,0,0,.18);
+      color: var(--muted);
+      font-size: 14px;
+      line-height:1.45;
+    }
+    .status strong{color: var(--text)}
+    .result{
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(64,242,199,.22);
+      background: rgba(64,242,199,.06);
+    }
+    .result h3{
+      margin:0 0 8px;
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 700;
+      letter-spacing:.02em;
+      text-transform: uppercase;
+    }
+    .kv{
+      display:grid;
+      grid-template-columns: 120px 1fr;
+      gap: 8px 12px;
+      align-items:start;
+      font-size: 15px;
+    }
+    .k{color: var(--muted)}
+    .v{color: var(--text); word-break: break-word}
+    .pill{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(233,242,241,.12);
+      background: rgba(0,0,0,.18);
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .pills{display:flex; gap:10px; flex-wrap:wrap; margin-top: 8px}
+    .right h2{
+      margin: 0 0 10px;
+      font-size: 16px;
+      color: var(--text);
+      letter-spacing:.01em;
+    }
+    .right p{
+      margin: 0 0 10px;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 14px;
+    }
+    .list{
+      margin: 10px 0 0;
+      padding: 0 0 0 18px;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 14px;
+    }
+    .footer{
+      margin-top: 16px;
+      color: rgba(233,242,241,.55);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    .smallLink{
+      color: rgba(64,242,199,.85);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(64,242,199,.25);
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand">
+        <div class="dot"></div>
+        <div style="font-weight:800; letter-spacing:.02em;">SF Parcel Report</div>
+      </div>
+      <div class="pill">Web preview, address to parcel</div>
+    </header>
+
+    <h1>Get the parcel, fast.</h1>
+    <p class="sub">
+      Enter a San Francisco address and generate a clean parcel summary.
+      This page is a simple web front door. The live report engine will be connected next.
+    </p>
+
+    <div class="grid">
+      <div class="card">
+        <label for="addr">San Francisco address</label>
+        <input id="addr" placeholder='Example: 1193 Market St' autocomplete="street-address" />
+
+        <div class="row">
+          <button id="runBtn">Generate report</button>
+          <button class="secondary" id="demoBtn" type="button">Try a demo</button>
+        </div>
+
+        <div class="hint">
+          This version is designed for non technical users. No downloads, no terminals, no Python references.
+        </div>
+
+        <div class="status" id="statusBox">
+          <strong>Status:</strong> Waiting for an address.
+        </div>
+
+        <div class="result" id="resultBox" style="display:none;">
+          <h3>Report preview</h3>
+          <div class="kv">
+            <div class="k">Address</div><div class="v" id="rAddress"></div>
+            <div class="k">APN</div><div class="v" id="rApn"></div>
+            <div class="k">Notes</div><div class="v" id="rNotes"></div>
+          </div>
+        </div>
+
+        <div class="footer">
+          Next step is wiring this button to the real engine and returning a full, printable report.
+        </div>
+      </div>
+
+      <div class="card right">
+        <h2>What this tool is</h2>
+        <p>
+          A lightweight, address first parcel and planning report for San Francisco.
+          Designed for agents, planners, and operators who need answers quickly.
+        </p>
+
+        <h2>What happens next</h2>
+        <ul class="list">
+          <li>Connect this page to a hosted API that resolves address to APN and returns a report.</li>
+          <li>Add ambiguity handling with a clean, human readable pick list when an address maps to multiple parcels.</li>
+          <li>Generate a shareable PDF, plus a one click copy link for email and SMS.</li>
+        </ul>
+
+        <div class="pills">
+          <div class="pill">Mobile friendly</div>
+          <div class="pill">Shareable output</div>
+          <div class="pill">No technical setup</div>
+        </div>
+
+        <p style="margin-top:14px;">
+          If you want, we can also add a “Planner mode” with more fields and a “Realtor mode” that stays minimal.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    function setStatus(text){
+      $("statusBox").innerHTML = "<strong>Status:</strong> " + text;
+    }
+
+    function showResult({ address, apn, notes }){
+      $("rAddress").textContent = address;
+      $("rApn").textContent = apn;
+      $("rNotes").textContent = notes;
+      $("resultBox").style.display = "block";
+    }
+
+    function hideResult(){
+      $("resultBox").style.display = "none";
+    }
+
+    function normalizeAddress(s){
+      return (s || "").trim();
+    }
+
+    // Placeholder demo logic only.
+    // When the API exists, replace runDemoOrApi with a real fetch call.
+    async function runDemoOrApi(address){
+      // Simulate processing
+      setStatus("Working, building report preview…");
+      hideResult();
+
+      await new Promise(r => setTimeout(r, 550));
+
+      const looksLikeSF = /san\s*francisco|sf|ca|st|ave|blvd|market|mission|castro|van\s*ness/i.test(address);
+      if (!address){
+        setStatus("Enter an address first.");
+        return;
+      }
+
+      if (!looksLikeSF){
+        setStatus("This web preview only targets San Francisco addresses.");
+        showResult({
+          address,
+          apn: "Not available yet",
+          notes: "The live resolver will validate city and return either a result or a clear ambiguity pick list."
+        });
+        return;
+      }
+
+      // Fake demo output
+      showResult({
+        address,
+        apn: "Demo result",
+        notes: "This is a web UI prototype. Next step is connecting the real resolver and planning data sources."
+      });
+      setStatus("Preview generated. Next step is connecting the live engine.");
+    }
+
+    $("runBtn").addEventListener("click", async () => {
+      const address = normalizeAddress($("addr").value);
+      await runDemoOrApi(address);
+    });
+
+    $("demoBtn").addEventListener("click", async () => {
+      $("addr").value = "1193 Market St, San Francisco, CA";
+      await runDemoOrApi($("addr").value);
+    });
+
+    $("addr").addEventListener("keydown", (e) => {
+      if (e.key === "Enter"){
+        $("runBtn").click();
+      }
+    });
+  </script>
+</body>
+</html>
